@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DemoIbaSoftpos</string>
+
+    <string name="currency_select_text">Please Select\nyour Currency</string>
 </resources>

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.generic.hilt)
+    alias(libs.plugins.generic.android.room)
 }
 
 android {
@@ -9,6 +11,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.domain.interfaces)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

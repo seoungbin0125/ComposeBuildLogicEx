@@ -21,6 +21,7 @@ dependencies {
     compileOnly(libs.android.tools.common)
     compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
+
     compileOnly(libs.android.tools.build.gradle)
     compileOnly(libs.kotlin.gradle.plugin)
     compileOnly(libs.compose.compiler.extension)
@@ -55,6 +56,10 @@ gradlePlugin {
         register("ApplicationCompose") {
             id = "generic.application.compose"
             implementationClass = "ApplicationComposeConventionPlugin"
+        }
+        register("androidRoom") {
+            id = "generic.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
         }
     }
 }

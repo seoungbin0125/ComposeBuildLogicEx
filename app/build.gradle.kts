@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.common.utils)
     implementation(projects.feacture.payment)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

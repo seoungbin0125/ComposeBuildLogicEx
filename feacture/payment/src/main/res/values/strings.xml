@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">payment</string>
+
+    <string name="currency_select_text">Please Select\nyour Currency</string>
+    <string name="hint_barcode_scan">Please Scan Your\nItems</string>
+    <string name="barcode_add_empty_message">Barcode id or name is empty</string>
 </resources>

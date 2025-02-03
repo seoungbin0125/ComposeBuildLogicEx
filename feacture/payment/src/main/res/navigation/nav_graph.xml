@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/introFragment">
+
+    <action
+        android:id="@+id/action_currency_select"
+        app:destination="@id/currencySelectionFragment" />
+
+    <action
+        android:id="@+id/action_barcode_item_setting"
+        app:destination="@id/barcodeItemSettingFragment" />
+
+    <action
+        android:id="@+id/action_intro"
+        app:destination="@id/introFragment" />
+
+    <action
+        android:id="@+id/action_barcode_scan"
+        app:destination="@id/barcodeScanFragment" />
+
+    <!-- IntroFragment -->
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.bluebirdcorp.iba.feacture.payment.fragment.IntroFragment"
+        android:label="IntroFragment">
+
+    </fragment>
+
+    <!-- CurrencySelectionFragment -->
+    <fragment
+        android:id="@+id/currencySelectionFragment"
+        android:name="com.bluebirdcorp.iba.feacture.payment.fragment.CurrencySelectionFragment"
+        android:label="CurrencySelectionFragment">
+
+    </fragment>
+
+    <!-- BarcodeScanFragment -->
+    <fragment
+        android:id="@+id/barcodeScanFragment"
+        android:name="com.bluebirdcorp.iba.feacture.payment.fragment.BarcodeScanFragment"
+        android:label="BarcodeScanFragment">
+
+    </fragment>
+
+    <!-- BarcodeItemSettingsFragment -->
+    <fragment
+        android:id="@+id/barcodeItemSettingFragment"
+        android:name="com.bluebirdcorp.iba.feacture.payment.fragment.BarcodeItemSettingsFragment"
+        android:label="BarcodeItemSettingsFragment">
+    </fragment>
+
+</navigation>
