@@ -1,4 +1,4 @@
-import com.bluebirdcorp.iba.convention.configureKotlinAndroid
+import com.bluebirdcorp.softpos.convention.configureKotlinAndroid
 
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin

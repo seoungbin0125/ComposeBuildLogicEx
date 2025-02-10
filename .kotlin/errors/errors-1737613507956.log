@@ -49,10 +49,10 @@ The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.ba
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
 	at java.base/java.lang.Thread.run(Unknown Source)
 Caused by: java.lang.RuntimeException: Exception while generating code for:
-FUN name:MainScreen visibility:public modality:FINAL <> ($this:com.bluebirdcorp.iba.barcode.MainActivity, activityLauncher:androidx.activity.result.ActivityResultLauncher<android.content.Intent>) returnType:kotlin.Unit
+FUN name:MainScreen visibility:public modality:FINAL <> ($this:com.bluebirdcorp.softpos.barcode.MainActivity, activityLauncher:androidx.activity.result.ActivityResultLauncher<android.content.Intent>) returnType:kotlin.Unit
   annotations:
     Composable
-  $this: VALUE_PARAMETER name:<this> type:com.bluebirdcorp.iba.barcode.MainActivity
+  $this: VALUE_PARAMETER name:<this> type:com.bluebirdcorp.softpos.barcode.MainActivity
   VALUE_PARAMETER name:activityLauncher index:0 type:androidx.activity.result.ActivityResultLauncher<android.content.Intent>
   BLOCK_BODY
     VAR name:context type:android.content.Context [val]
@@ -64,10 +64,10 @@ FUN name:MainScreen visibility:public modality:FINAL <> ($this:com.bluebirdcorp.
         COMPOSITE type=kotlin.Unit origin=null
         CALL 'public final fun <jvm-indy> <T> (dynamicCall: T of kotlin.jvm.internal.<jvm-indy>, bootstrapMethodHandle: kotlin.Any, vararg bootstrapMethodArguments: kotlin.Any): T of kotlin.jvm.internal.<jvm-indy> declared in kotlin.jvm.internal' type=kotlin.Function0<kotlin.Unit> origin=null
           <T>: kotlin.Function0<kotlin.Unit>
-          dynamicCall: CALL 'public final fun invoke (p0: com.bluebirdcorp.iba.barcode.MainActivity, p1: android.content.Context, p2: androidx.activity.result.ActivityResultLauncher<android.content.Intent>): kotlin.Function0<kotlin.Unit> declared in kotlin.jvm.internal.invokeDynamic' type=kotlin.Function0<kotlin.Unit> origin=null
-            p0: GET_VAR '<this>: com.bluebirdcorp.iba.barcode.MainActivity declared in com.bluebirdcorp.iba.barcode.MainActivity.MainScreen' type=com.bluebirdcorp.iba.barcode.MainActivity origin=null
-            p1: GET_VAR 'val context: android.content.Context [val] declared in com.bluebirdcorp.iba.barcode.MainActivity.MainScreen' type=android.content.Context origin=null
-            p2: GET_VAR 'activityLauncher: androidx.activity.result.ActivityResultLauncher<android.content.Intent> declared in com.bluebirdcorp.iba.barcode.MainActivity.MainScreen' type=androidx.activity.result.ActivityResultLauncher<android.content.Intent> origin=null
+          dynamicCall: CALL 'public final fun invoke (p0: com.bluebirdcorp.softpos.barcode.MainActivity, p1: android.content.Context, p2: androidx.activity.result.ActivityResultLauncher<android.content.Intent>): kotlin.Function0<kotlin.Unit> declared in kotlin.jvm.internal.invokeDynamic' type=kotlin.Function0<kotlin.Unit> origin=null
+            p0: GET_VAR '<this>: com.bluebirdcorp.softpos.barcode.MainActivity declared in com.bluebirdcorp.softpos.barcode.MainActivity.MainScreen' type=com.bluebirdcorp.softpos.barcode.MainActivity origin=null
+            p1: GET_VAR 'val context: android.content.Context [val] declared in com.bluebirdcorp.softpos.barcode.MainActivity.MainScreen' type=android.content.Context origin=null
+            p2: GET_VAR 'activityLauncher: androidx.activity.result.ActivityResultLauncher<android.content.Intent> declared in com.bluebirdcorp.softpos.barcode.MainActivity.MainScreen' type=androidx.activity.result.ActivityResultLauncher<android.content.Intent> origin=null
           bootstrapMethodHandle: CALL 'public final fun <jvm-method-handle> (tag: kotlin.Int, owner: kotlin.String, name: kotlin.String, descriptor: kotlin.String, isInterface: kotlin.Boolean): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
             tag: CONST Int type=kotlin.Int value=6
             owner: CONST String type=kotlin.String value="java/lang/invoke/LambdaMetafactory"
@@ -77,7 +77,7 @@ FUN name:MainScreen visibility:public modality:FINAL <> ($this:com.bluebirdcorp.
           bootstrapMethodArguments: VARARG type=kotlin.Array<kotlin.Any> varargElementType=kotlin.Any
             CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
               method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (): R of kotlin.Function0 [operator] declared in kotlin.Function0' type=kotlin.Any
-            RAW_FUNCTION_REFERENCE 'private final fun MainScreen$lambda$3 (this$0: com.bluebirdcorp.iba.barcode.MainActivity, $context: android.content.Context, $activityLauncher: androidx.activity.result.ActivityResultLauncher<android.content.Intent>): kotlin.Unit? declared in com.bluebirdcorp.iba.barcode.MainActivity' type=kotlin.Any
+            RAW_FUNCTION_REFERENCE 'private final fun MainScreen$lambda$3 (this$0: com.bluebirdcorp.softpos.barcode.MainActivity, $context: android.content.Context, $activityLauncher: androidx.activity.result.ActivityResultLauncher<android.content.Intent>): kotlin.Unit? declared in com.bluebirdcorp.softpos.barcode.MainActivity' type=kotlin.Any
             CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
               method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (): kotlin.Unit? [fake_override,operator] declared in kotlin.jvm.internal.invokeDynamic.<fake>' type=kotlin.Any
       modifier: CALL 'public final fun padding-3ABfNKs (all: androidx.compose.ui.unit.Dp): androidx.compose.ui.Modifier declared in androidx.compose.foundation.layout.PaddingKt' type=androidx.compose.ui.Modifier origin=null
@@ -112,7 +112,7 @@ FUN name:MainScreen visibility:public modality:FINAL <> ($this:com.bluebirdcorp.
           bootstrapMethodArguments: VARARG type=kotlin.Array<kotlin.Any> varargElementType=kotlin.Any
             CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
               method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (p1: P1 of kotlin.Function1): R of kotlin.Function1 [operator] declared in kotlin.Function1' type=kotlin.Any
-            RAW_FUNCTION_REFERENCE 'private final fun MainScreen$lambda$4 ($this$Button: androidx.compose.foundation.layout.RowScope): kotlin.Unit? declared in com.bluebirdcorp.iba.barcode.MainActivity' type=kotlin.Any
+            RAW_FUNCTION_REFERENCE 'private final fun MainScreen$lambda$4 ($this$Button: androidx.compose.foundation.layout.RowScope): kotlin.Unit? declared in com.bluebirdcorp.softpos.barcode.MainActivity' type=kotlin.Any
             CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
               method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (p1: androidx.compose.foundation.layout.RowScope): kotlin.Unit? [fake_override,operator] declared in kotlin.jvm.internal.invokeDynamic.<fake>' type=kotlin.Any
       $mask0: CONST Int type=kotlin.Int value=508

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.bluebirdcorp.iba.feacture.payment"
+    namespace = "com.bluebirdcorp.softpos.feacture.payment"
     compileSdk = 34
 
     buildFeatures {

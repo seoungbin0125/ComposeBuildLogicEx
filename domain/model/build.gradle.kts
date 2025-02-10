@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.bluebirdcorp.iba.model"
+    namespace = "com.bluebirdcorp.softpos.model"
     compileSdk = 34
 
     defaultConfig {

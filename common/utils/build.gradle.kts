@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.bluebirdcorp.iba.common.utils"
+    namespace = "com.bluebirdcorp.softpos.common.utils"
     compileSdk = 34
 }
 

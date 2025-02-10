@@ -23,7 +23,7 @@
     <!-- IntroFragment -->
     <fragment
         android:id="@+id/introFragment"
-        android:name="com.bluebirdcorp.iba.feacture.payment.fragment.IntroFragment"
+        android:name="com.bluebirdcorp.softpos.feacture.payment.fragment.IntroFragment"
         android:label="IntroFragment">
 
     </fragment>
@@ -31,7 +31,7 @@
     <!-- CurrencySelectionFragment -->
     <fragment
         android:id="@+id/currencySelectionFragment"
-        android:name="com.bluebirdcorp.iba.feacture.payment.fragment.CurrencySelectionFragment"
+        android:name="com.bluebirdcorp.softpos.feacture.payment.fragment.CurrencySelectionFragment"
         android:label="CurrencySelectionFragment">
 
     </fragment>
@@ -39,7 +39,7 @@
     <!-- BarcodeScanFragment -->
     <fragment
         android:id="@+id/barcodeScanFragment"
-        android:name="com.bluebirdcorp.iba.feacture.payment.fragment.BarcodeScanFragment"
+        android:name="com.bluebirdcorp.softpos.feacture.payment.fragment.BarcodeScanFragment"
         android:label="BarcodeScanFragment">
 
     </fragment>
@@ -47,7 +47,7 @@
     <!-- BarcodeItemSettingsFragment -->
     <fragment
         android:id="@+id/barcodeItemSettingFragment"
-        android:name="com.bluebirdcorp.iba.feacture.payment.fragment.BarcodeItemSettingsFragment"
+        android:name="com.bluebirdcorp.softpos.feacture.payment.fragment.BarcodeItemSettingsFragment"
         android:label="BarcodeItemSettingsFragment">
     </fragment>
 

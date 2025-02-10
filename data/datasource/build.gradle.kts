@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.bluebirdcorp.iba.datasource"
+    namespace = "com.bluebirdcorp.softpos.datasource"
     compileSdk = 34
 }
 

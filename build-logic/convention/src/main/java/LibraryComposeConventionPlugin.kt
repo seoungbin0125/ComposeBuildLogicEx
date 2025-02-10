@@ -1,4 +1,4 @@
-import com.bluebirdcorp.iba.convention.configureCompose
+import com.bluebirdcorp.softpos.convention.configureCompose
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project

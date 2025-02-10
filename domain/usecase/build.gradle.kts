@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.bluebirdcorp.iba.domain.usecase"
+    namespace = "com.bluebirdcorp.softpos.domain.usecase"
     compileSdk = 34
 }
 
