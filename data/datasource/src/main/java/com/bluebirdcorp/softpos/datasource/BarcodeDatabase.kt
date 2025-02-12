@@ -1,6 +1,7 @@
 package com.bluebirdcorp.softpos.datasource
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -29,6 +30,7 @@ abstract class BarcodeDatabase : RoomDatabase() {
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
+                            Log.d("BarcodeDatabase", "oncreate!!")
                             CoroutineScope(Dispatchers.IO).launch {
                                 val barcodeDao = INSTANCE?.barcodeDao()
                                 barcodeDao?.insertBarcode(BarcodeEntity(id = 8801019009082, name = "Jelly Gems", dollarPrice = 5.0, euroPrice = 5.0))
@@ -41,6 +43,9 @@ abstract class BarcodeDatabase : RoomDatabase() {
                     })
                     .build()
                 INSTANCE = instance
+                CoroutineScope(Dispatchers.IO).launch {
+                    instance.barcodeDao().findById(-1)
+                }
                 instance
             }
         }

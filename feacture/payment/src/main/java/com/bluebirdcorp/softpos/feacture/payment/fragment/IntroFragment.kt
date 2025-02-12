@@ -22,13 +22,17 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.bluebirdcorp.softpos.common.utils.debug
 import com.bluebirdcorp.softpos.feacture.payment.R
+import com.bluebirdcorp.softpos.feacture.payment.view_model.SharedPaymentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class IntroFragment : Fragment() {
+class   IntroFragment : Fragment() {
+
+    private val sharedPaymentViewModel: SharedPaymentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +43,16 @@ class IntroFragment : Fragment() {
             setContent {
                 IntroScreen(
                     onStartClick = {
-                        // Fragment Navigation으로 이동
-                        findNavController().navigate(R.id.action_currency_select)
+//                        sharedPaymentViewModel.requestTapxPhonePayment(
+//                            requireContext(), "", 20.22
+//                        )
+//                         Fragment Navigation으로 이동
+                        findNavController().navigate(R.id.action_barcode_scan)
                     },
                     onSettingsClick = {
+//                        sharedPaymentViewModel.requestWorldLinePayment(
+//                            requireContext(), "", 20.22
+//                        )
                         findNavController().navigate(R.id.action_barcode_item_setting)
                     }
                 )
@@ -69,7 +79,6 @@ fun IntroScreen(onStartClick: () -> Unit, onSettingsClick: () -> Unit) {
                 modifier = Modifier.matchParentSize()
             )
 
-            // UI 요소 배치
             Box(
                 modifier = Modifier
                     .fillMaxSize()

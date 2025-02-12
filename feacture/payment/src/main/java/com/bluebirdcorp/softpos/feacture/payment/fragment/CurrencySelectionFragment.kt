@@ -58,7 +58,7 @@ class CurrencySelectionFragment : Fragment() {
                 CurrencySelectionScreen(
                     onDollarClick = {
                         val bundle = Bundle().apply {
-                            putString(BarcodeScanFragment.ARG_CURRENCY, BarcodeScanFragment.CURRENCY_DOLLAR)
+                            putString(PriceCheckerFragment.ARG_CURRENCY, PriceCheckerFragment.CURRENCY_DOLLAR)
                         }
                         findNavController().navigate(
                             R.id.action_barcode_scan,
@@ -67,7 +67,7 @@ class CurrencySelectionFragment : Fragment() {
                     },
                     onEuroClick = {
                         val bundle = Bundle().apply {
-                            putString(BarcodeScanFragment.ARG_CURRENCY, BarcodeScanFragment.CURRENCY_EURO)
+                            putString(PriceCheckerFragment.ARG_CURRENCY, PriceCheckerFragment.CURRENCY_EURO)
                         }
                         findNavController().navigate(
                             R.id.action_barcode_scan,
@@ -129,6 +129,9 @@ class CurrencySelectionFragment : Fragment() {
                         modifier = Modifier.padding(top = 16.dp) // 버튼 그룹 위치 조정
                     ) {
                         CurrencyButton(R.drawable.icon_dollar, onDollarClick)
+//                        sharedPaymentViewModel.requestTapxPhonePayment(
+//                            requireContext(), "", 20.22
+//                        )
                         CurrencyButton(R.drawable.icon_euro, onEuroClick)
                     }
                 }

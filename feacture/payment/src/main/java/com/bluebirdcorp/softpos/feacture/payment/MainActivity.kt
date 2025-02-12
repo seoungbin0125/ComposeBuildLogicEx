@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bluebirdcorp.softpos.common.utils.debug
+import com.bluebirdcorp.softpos.domain.usecase.BarcodeDatabaseUsecase
 import com.bluebirdcorp.softpos.domain.usecase.BarcodeHandleUsecase
 import com.bluebirdcorp.softpos.feacture.payment.view_model.SharedPaymentViewModel
-
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,10 +23,11 @@ class MainActivity : AppCompatActivity() {
         val TAG = this::class.java.simpleName
     }
 
-
-
     @Inject
     lateinit var barcodeHandleUsecase: BarcodeHandleUsecase
+
+    @Inject
+    lateinit var barcodeDatabaseUsecase: BarcodeDatabaseUsecase
 
     private lateinit var navController: NavController
 
@@ -80,15 +80,16 @@ class MainActivity : AppCompatActivity() {
                     val data = result.data
                     val serverMessage =
                         data?.getStringExtra("server_message") ?: "No server message"
-                    val intent_result = data?.getStringExtra("intent_result") ?: "No intent_result"
-                    Log.d(TAG, "Transaction completed successfully. Server Message: $serverMessage")
-                    Log.d(TAG, "Transaction completed successfully. intent_result: $intent_result")
+                    // IBA Succes Result code is "INTENT-0"
+                    val iba_intent_result = data?.getStringExtra("intent_result") ?: "No intent_result"
+                    Log.d(TAG, "Server Message: $serverMessage")
+                    Log.d(TAG, "iba_intent_result: $iba_intent_result")
 
-                    Toast.makeText(
-                        this,
-                        "Server Message: $serverMessage, intent_result : $intent_result",
-                        Toast.LENGTH_LONG
-                    ).show()
+//                    Toast.makeText(
+//                        this,
+//                        "Transaction completed successfully",
+//                        Toast.LENGTH_LONG
+//                    ).show()
                 }
                 RESULT_CANCELED -> {
                     val data = result.data

@@ -24,7 +24,7 @@ dependencyResolutionManagement {
 
 gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
 
-rootProject.name = "DemoIbaSoftpos"
+rootProject.name = "DemoSoftpos"
 include(":app")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

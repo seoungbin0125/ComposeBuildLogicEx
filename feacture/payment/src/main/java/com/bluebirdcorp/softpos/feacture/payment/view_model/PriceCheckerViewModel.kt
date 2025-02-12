@@ -11,11 +11,13 @@ import com.bluebirdcorp.softpos.feacture.payment.model.BarcodeUiModel
 import com.bluebirdcorp.softpos.feacture.payment.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BarcodePriceCheckerViewModel @Inject constructor(
+class PriceCheckerViewModel @Inject constructor(
     private val barcodeDatabaseUsecase: BarcodeDatabaseUsecase,
     private val barcodeHandleUsecase: BarcodeHandleUsecase,
     private val barcodeScanRepo: BarcodeScanRepo,
@@ -24,17 +26,14 @@ class BarcodePriceCheckerViewModel @Inject constructor(
     private val _barcodeList = MutableLiveData<List<BarcodeUiModel>>()
     val barcodeList = _barcodeList
 
-    init {
-        collectBarcodeScan()
-    }
-
-    fun collectBarcodeScan() {
+    fun startCollectBarcodeScan() {
         debug("collectBarcodeValue!")
         viewModelScope.launch(Dispatchers.IO) {
-            barcodeScanRepo.getBarcodeScanFlow().collect { barcodeId ->
+            barcodeScanRepo.getBarcodeScanFlow().throttleFirst(300).collect { barcodeId ->
                 debug("barcodeId : $barcodeId")
                 val barcodeUiModel = barcodeDatabaseUsecase.findItemByBarcodeId(barcodeId)?.toUi()
                 barcodeUiModel?.let {
+                    debug("barcodeUiModel : $barcodeUiModel")
                     val currentList = _barcodeList.value?.toMutableList() ?: mutableListOf()
                     currentList.add(it)
                     _barcodeList.postValue(currentList)
@@ -48,6 +47,17 @@ class BarcodePriceCheckerViewModel @Inject constructor(
             val currentList = _barcodeList.value?.toMutableList() ?: mutableListOf()
             currentList.remove(item) // Use remove or removeAt depending on your needs
             _barcodeList.value = currentList
+        }
+    }
+
+    fun <T> Flow<T>.throttleFirst(windowDuration: Long): Flow<T> = flow {
+        var lastEmissionTime = 0L
+        collect { upstream ->
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - lastEmissionTime > windowDuration) {
+                lastEmissionTime = currentTime
+                emit(upstream)
+            }
         }
     }
 }

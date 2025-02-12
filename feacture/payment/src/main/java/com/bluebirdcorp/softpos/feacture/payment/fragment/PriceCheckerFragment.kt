@@ -53,7 +53,7 @@ import com.bluebirdcorp.softpos.common.utils.debug
 import com.bluebirdcorp.softpos.domain.usecase.BarcodeHandleUsecase
 import com.bluebirdcorp.softpos.feacture.payment.R
 import com.bluebirdcorp.softpos.feacture.payment.model.BarcodeUiModel
-import com.bluebirdcorp.softpos.feacture.payment.view_model.BarcodePriceCheckerViewModel
+import com.bluebirdcorp.softpos.feacture.payment.view_model.PriceCheckerViewModel
 import com.bluebirdcorp.softpos.feacture.payment.view_model.SharedPaymentViewModel
 import com.bluebirdcorp.softpos.feacture.ui.CommonDialogShape
 import com.bluebirdcorp.softpos.feacture.ui.CustomImageButton
@@ -63,11 +63,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BarcodeScanFragment : Fragment() {
+class PriceCheckerFragment : Fragment() {
     @Inject
     lateinit var barcodeHandleUsecase: BarcodeHandleUsecase
 
-    private val viewModel: BarcodePriceCheckerViewModel by viewModels()
+    private val priceCheckerViewModel: PriceCheckerViewModel by viewModels()
 
     private val sharedPaymentViewModel: SharedPaymentViewModel by activityViewModels()
 
@@ -83,10 +83,10 @@ class BarcodeScanFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mSeletedCurrency = arguments?.getString(ARG_CURRENCY) ?: CURRENCY_DOLLAR
+        mSeletedCurrency = arguments?.getString(ARG_CURRENCY) ?: CURRENCY_EURO
         debug("onCreateView, currency : $mSeletedCurrency")
         barcodeHandleUsecase.openBarcode()
-        observeBarcodeList()
+        priceCheckerViewModel.startCollectBarcodeScan()
         return ComposeView(requireContext()).apply {
             setContent {
                 BarcodeScanScreen()
@@ -94,9 +94,6 @@ class BarcodeScanFragment : Fragment() {
         }
     }
 
-    private fun observeBarcodeList() {
-
-    }
 
     private fun isSeletedDollar(): Boolean = mSeletedCurrency == CURRENCY_DOLLAR
 
@@ -125,7 +122,8 @@ class BarcodeScanFragment : Fragment() {
 
     @Composable
     fun BarcodeScanScreen() {
-        val barcodeList by viewModel.barcodeList.observeAsState(emptyList())
+        debug("BarcodeScanScreen")
+        val barcodeList by priceCheckerViewModel.barcodeList.observeAsState(emptyList())
 
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -154,7 +152,7 @@ class BarcodeScanFragment : Fragment() {
                         BarcodeListScreen(
                             barcodeList,
                             onDelete = { item ->
-                                viewModel.deleteItem(item)
+                                priceCheckerViewModel.deleteItem(item)
                             })
                     }
                 }
@@ -209,10 +207,13 @@ class BarcodeScanFragment : Fragment() {
                             },
                             onWorldlineTapOnMobile = {
                                 // Worldline Tap on Mobile 로직
+                                sharedPaymentViewModel.requestWorldLinePayment(
+                                    requireContext(), mSeletedCurrency, totalPrice
+                                )
                             },
                             onTapXPhone = {
                                 sharedPaymentViewModel.requestTapxPhonePayment(
-                                    requireContext(), mSeletedCurrency, totalPrice.toString()
+                                    requireContext(), mSeletedCurrency, totalPrice
                                 )
                             }
                         )
@@ -271,8 +272,6 @@ class BarcodeScanFragment : Fragment() {
                                 onConfirmShowDialogChange(true)
                             }
                         },
-//                        indication = rememberRipple(bounded = true),  // ripple 효과를 설정
-//                        interactionSource = remember { MutableInteractionSource() }  // 상호작용 관리
                     )
                     .align(Alignment.Center),
                 fontSize = 32.sp,
@@ -320,7 +319,7 @@ class BarcodeScanFragment : Fragment() {
                         color = Color(0xFFECECEC)
                     )
                     Text(
-                        text = "$${subTotalPrice}",
+                        text = "€${subTotalPrice}",
                         fontSize = 26.sp,
                         color = Color(0xFFECECEC)
                     )
@@ -339,7 +338,7 @@ class BarcodeScanFragment : Fragment() {
                         color = Color(0xFFECECEC)
                     )
                     Text(
-                        text = String.format("$%.2f", tax),
+                        text = String.format("€%.2f", tax),
                         fontSize = 26.sp,
                         color = Color(0xFFECECEC)
                     )
@@ -367,7 +366,7 @@ class BarcodeScanFragment : Fragment() {
                         color = Color(0xFFB4E4FF)
                     )
                     Text(
-                        text = totalPrice.toString(),
+                        text = "€${totalPrice.toString()}",
                         fontSize = 32.sp,
                         color = Color(0xFFB4E4FF)
                     )
@@ -559,7 +558,7 @@ fun SoftposPaymentContent(
                             )
                         }
                         Text(
-                            text = String.format("$%.2f", subTotal),
+                            text = String.format("€%.2f", subTotal),
                             fontSize = 22.sp,
                             color = Color(0xFF6E6E6E)
                         )
@@ -577,7 +576,7 @@ fun SoftposPaymentContent(
                             color = Color(0xFF6E6E6E)
                         )
                         Text(
-                            text = String.format("$%.2f", tax),
+                            text = String.format("€%.2f", tax),
                             fontSize = 22.sp,
                             color = Color(0xFF6E6E6E)
                         )
@@ -606,7 +605,7 @@ fun SoftposPaymentContent(
                             color = Color(0xFF00AEF0)
                         )
                         Text(
-                            text = String.format("$%.2f", total),
+                            text = String.format("€%.2f", total),
                             fontSize = 26.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF00AEF0)

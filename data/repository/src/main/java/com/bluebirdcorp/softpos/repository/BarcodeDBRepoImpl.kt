@@ -16,6 +16,7 @@ class BarcodeDBRepoImpl @Inject constructor(
     @ApplicationContext private val mContext: Context,
     private val barcodeDao: BarcodeDao,
     ) : BarcodeDBRepo<BarcodeItem>{
+
     override suspend fun deleteBarcodeItem() {
         TODO("Not yet implemented")
     }

@@ -152,6 +152,9 @@ fun CustomImageButton(
 ) {
     Box(
         modifier = parentModifier
+            .clickable {
+                onClick()
+            }
             .background(
                 color = Color.White,
                 shape = RoundedCornerShape(12.dp)
@@ -159,9 +162,6 @@ fun CustomImageButton(
             .fillMaxWidth()
             .height(110.dp)
             .padding(top = 3.dp, bottom = 20.dp)
-            .clickable {
-                onClick()
-            }
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

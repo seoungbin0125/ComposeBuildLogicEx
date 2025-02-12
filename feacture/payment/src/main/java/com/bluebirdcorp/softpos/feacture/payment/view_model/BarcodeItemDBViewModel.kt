@@ -8,7 +8,6 @@ import com.bluebirdcorp.softpos.domain.item.BarcodeItem
 import com.bluebirdcorp.softpos.domain.usecase.BarcodeDatabaseUsecase
 import com.bluebirdcorp.softpos.domain.usecase.BarcodeHandleUsecase
 import com.bluebirdcorp.softpos.feacture.interfaces.BarcodeScanRepo
-import com.bluebirdcorp.softpos.feacture.payment.mapper.BarcodeItemMapper
 import com.bluebirdcorp.softpos.feacture.payment.model.BarcodeUiModel
 import com.bluebirdcorp.softpos.feacture.payment.model.toDomain
 import com.bluebirdcorp.softpos.feacture.payment.model.toUi
@@ -55,11 +54,28 @@ class BarcodeItemDBViewModel @Inject constructor(
         }
     }
 
-    fun addBarcodeItem(barcodeItem: BarcodeUiModel) {
+    fun addOrUpdateBarcodeItem(barcodeItem: BarcodeUiModel) {
         val currentList = _barcodeList.value ?: emptyList()
-        val updatedList = currentList + barcodeItem
 
+        // 기존 리스트에서 일치하는 항목 찾기
+        val updatedList = currentList.map { existingItem ->
+            if (existingItem.id == barcodeItem.id) {
+                // 기존 항목이 있으면 수정
+                barcodeItem // 새로운 값으로 업데이트
+            } else {
+                existingItem // 변경 없으면 그대로 유지
+            }
+        }.toMutableList()
+
+        // 기존 항목이 없으면 새 항목 추가
+        if (updatedList.none { it.id == barcodeItem.id }) {
+            updatedList.add(barcodeItem)
+        }
+
+        // 변경된 리스트를 LiveData에 반영
         _barcodeList.value = updatedList
+
+        // 데이터베이스에 항목 추가/수정
         viewModelScope.launch(Dispatchers.IO) {
             barcodeDatabaseUsecase.insertBarcodeItem(barcodeItem.toDomain())
         }

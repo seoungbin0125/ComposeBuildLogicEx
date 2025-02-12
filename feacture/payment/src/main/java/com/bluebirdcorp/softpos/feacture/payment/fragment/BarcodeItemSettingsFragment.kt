@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
@@ -43,6 +44,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
@@ -86,12 +88,13 @@ class BarcodeItemSettingsFragment : Fragment() {
                 .fillMaxWidth()
                 .background(
                     Color(0xFFF5F5F5),
-                ),
+                )
+                .padding(start = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconItem(iconId = R.drawable.icon_arrow, {
                 findNavController().popBackStack()
-            })
+            }, 20.dp)
             Spacer(modifier = Modifier.weight(1f))
             IconItem(iconId = R.drawable.icon_home, {
                 findNavController().navigate(R.id.action_intro)
@@ -190,8 +193,9 @@ class BarcodeItemSettingsFragment : Fragment() {
     ) {
         Box(
             modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp)
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(40.dp)
                 .background(
                     color = Color(0xFF035ADE),
                     shape = RoundedCornerShape(12.dp)
@@ -279,7 +283,7 @@ class BarcodeItemSettingsFragment : Fragment() {
 
 
                             LaunchedEffect(observedBarcodeId) {
-                                if (isEditing) {
+                                if (isEditing && observedBarcodeId != 0L) {
                                     displayedBarcodeId = observedBarcodeId
                                 }
                             }
@@ -305,8 +309,8 @@ class BarcodeItemSettingsFragment : Fragment() {
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(text = "Product Name", color = Color.Gray, fontSize = 18.sp)
-                debug("productName : $productName" )
-                debug("displayedBarcodeId : $displayedBarcodeId" )
+                debug("productName : $productName")
+                debug("displayedBarcodeId : $displayedBarcodeId")
 
                 if (isEditing) {
                     OutlinedTextField(
@@ -338,13 +342,23 @@ class BarcodeItemSettingsFragment : Fragment() {
                         if (isEditing) {
                             OutlinedTextField(
                                 value = dollarPrice.toString(),
-                                onValueChange = { dollarPrice = it.toDouble() },
+                                onValueChange = {
+                                    runCatching {
+                                        // 숫자 입력이 맞는지 확인
+                                        it.toDouble()
+                                    }.onSuccess {
+                                        dollarPrice = it.toDouble()
+                                    }
+                                },
                                 readOnly = !isEditing,
                                 textStyle = TextStyle(
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
                                 ),
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier.fillMaxWidth(),
+                                keyboardOptions = KeyboardOptions.Default.copy(
+                                    keyboardType = KeyboardType.Decimal // 숫자 및 소수점 입력 가능
+                                )
                             )
                         } else {
                             Column(modifier = Modifier.fillMaxWidth()) {
@@ -368,13 +382,23 @@ class BarcodeItemSettingsFragment : Fragment() {
                         if (isEditing) {
                             OutlinedTextField(
                                 value = euroPrice.toString(),
-                                onValueChange = { euroPrice = it.toDouble() },
+                                onValueChange = {
+                                    runCatching {
+                                        // 숫자 입력이 맞는지 확인
+                                        it.toDouble()
+                                    }.onSuccess {
+                                        euroPrice = it.toDouble()
+                                    }
+                                },
                                 readOnly = !isEditing,
                                 textStyle = TextStyle(
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
                                 ),
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier.fillMaxWidth(),
+                                keyboardOptions = KeyboardOptions.Default.copy(
+                                    keyboardType = KeyboardType.Decimal // 숫자 및 소수점 입력 가능
+                                )
                             )
                         } else {
                             Column(modifier = Modifier.fillMaxWidth()) {
@@ -404,7 +428,7 @@ class BarcodeItemSettingsFragment : Fragment() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             } else {
-                                viewModel.addBarcodeItem(
+                                viewModel.addOrUpdateBarcodeItem(
                                     barcode.copy(
                                         id = displayedBarcodeId,
                                         name = productName,

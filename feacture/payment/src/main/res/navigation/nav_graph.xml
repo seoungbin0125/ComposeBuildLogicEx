@@ -39,7 +39,7 @@
     <!-- BarcodeScanFragment -->
     <fragment
         android:id="@+id/barcodeScanFragment"
-        android:name="com.bluebirdcorp.softpos.feacture.payment.fragment.BarcodeScanFragment"
+        android:name="com.bluebirdcorp.softpos.feacture.payment.fragment.PriceCheckerFragment"
         android:label="BarcodeScanFragment">
 
     </fragment>

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.bluebirdcorp.softpos.softpos"
+    namespace = "com.bluebirdcorp.softpos"
     compileSdk = 34
 }
 
